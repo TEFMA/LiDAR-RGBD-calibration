@@ -1,6 +1,6 @@
 # LiDAR-RGBD-calibration
-RoboSense LiDAR (Helios 5515) and RGBD camera (Intel RealSense D435i) calibration.
-modified ref to https://github.com/ankitdhall/lidar_camera_calibration
+RoboSense LiDAR (Helios 5515) and RGBD camera (Intel RealSense D435i) calibration method.
+modified from https://github.com/ankitdhall/lidar_camera_calibration
 
 ## 1. 相关代码仓库
 (1) 激光雷达仓库：[rslidar_sdk](https://github.com/RoboSense-LiDAR/rslidar_sdk)  
