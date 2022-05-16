@@ -49,14 +49,14 @@ static int RING_ID_MAP_32[] = {
 ```
 
 ## 2.3 激光雷达与相机标定仓库
-ros包安装过程参照[Setup and Installation](https://github.com/ankitdhall/lidar_camera_calibration/wiki/Welcome-to-%60lidar_camera_calibration%60-Wiki!)进行安装配置，配置后需要对订阅话题进行对应修改。
-首先，要打开位于src/lidar_camera_calibration/launch 下的find_transform.launch， 把上面的 <!-- ArUco mapping --> 相关注释掉的地方都给打开。最后这个launch文件大概长这样：
+(1) ros包安装过程参照[Setup and Installation](https://github.com/ankitdhall/lidar_camera_calibration/wiki/Welcome-to-%60lidar_camera_calibration%60-Wiki!)进行安装配置  (2) 配置后需要对订阅话题进行对应修改：  
+打开lidar_camera_calibration/launch/find_transform.launch文件：
+a. 对<!-- ArUco mapping -->进行解注释(否则将导致标定程序在标定信息读取之后卡住)：
 ```
 <?xml version="1.0"?>
 <launch>
   <!-- <param name="/use_sim_time" value="true"/> -->
   
-
   <!-- ArUco mapping -->
   <node pkg="aruco_mapping" type="aruco_mapping" name="aruco_mapping" output="screen">
     <remap from="/image_raw" to="/camera/color/image_raw"/>
@@ -66,21 +66,17 @@ ros包安装过程参照[Setup and Installation](https://github.com/ankitdhall/l
     <param name="marker_size" type="double" value="0.125"/>
     <param name="space_type" type="string" value="plane" />
     <param name="roi_allowed" type="bool" value="false" />
-
-
   </node>  
-
 
   <rosparam command="load" file="$(find lidar_camera_calibration)/conf/lidar_camera_calibration.yaml" />
   <node pkg="lidar_camera_calibration" type="find_transform" name="find_transform" output="screen">
   </node>
 </launch>
 ```
-不进行解注释将导致标定程序卡在标定信息读取后。
-将remap字段修改成真正相机发送的图像topic，这个根据你的相机的ros驱动决定。
-修改zed_left_uurmi.ini 这个配置文件，将对应的相机参数进行相应修改。
-将src/lidar_camera_calibration/config/lidar_camera_calibration.yaml中的相机雷达话题进行相应的修改。
-*realsense2相机相关代码修改*
-原代码仓库默认使用zed相机使用灰度图进行图像显示，realsens2话题为彩色图像，在aruco_mapping.cpp文件中对[sensor_msgs::image_encodings](https://github.com/ankitdhall/lidar_camera_calibration/blob/13d52954fa18ee3eef86272757555a28a2532c71/dependencies/aruco_mapping/src/aruco_mapping.cpp#L167)编码方式进行更改，将MONO8修改为BGR8，解决报错cvtColor问题。
-如果雷达点云不是带有ring的格式将报错Failed to find match for field 'ring'.需要进行点云格式变换。
+b. 将remap字段按照实际相机的图像topic(在实际使用的相机ros驱动中可配置)进行修改，这里realsense的topic是/camera/color/image_raw  
+(4) 修改lidar_camera_calibration/dependencies/aruco_mapping/data/zed_left_uurmi.ini配置文件中对应的相机参数(实际使用的realsense相机参数)  
+(5) 修改lidar_camera_calibration/config/lidar_camera_calibration.yaml文件中的相机和雷达对应的topic  
+(6) realsense相机相关代码修改:  
+原代码仓库默认使用zed相机并使用灰度图进行图像显示，而realsense发布的topic为彩色图像，需要在lidar_camera_calibration/dependencies/aruco_mapping/src/aruco_mapping.cpp文件中对[sensor_msgs::image_encodings](https://github.com/ankitdhall/lidar_camera_calibration/blob/13d52954fa18ee3eef86272757555a28a2532c71/dependencies/aruco_mapping/src/aruco_mapping.cpp#L167)其编码方式进行更改，将MONO8修改为BGR8，否则会出现cvtColor报错问题  
+(7) 如果雷达点云不是带有ring的格式将报错Failed to find match for field 'ring'.需要进行点云格式变换,见2.2
 
