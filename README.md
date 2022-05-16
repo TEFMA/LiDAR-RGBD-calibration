@@ -3,9 +3,9 @@ RoboSense LiDAR (Helios 5515) and RGBD camera (Intel RealSense D435i) calibratio
 modified ref to https://github.com/ankitdhall/lidar_camera_calibration
 
 ## 1.相关代码仓库
-雷达仓库：[rslidar_sdk](https://github.com/RoboSense-LiDAR/rslidar_sdk)\\
-标定仓库：[LiDAR-Camera Calibration using 3D-3D Point correspondences](https://github.com/ankitdhall/lidar_camera_calibration)\\
-雷达格式转换仓库：[RS to Velodyne](https://github.com/HViktorTsoi/rs_to_velodyne)。
+雷达仓库：[rslidar_sdk](https://github.com/RoboSense-LiDAR/rslidar_sdk) </br>
+标定仓库：[LiDAR-Camera Calibration using 3D-3D Point correspondences](https://github.com/ankitdhall/lidar_camera_calibration) </br>
+雷达格式转换仓库：[RS to Velodyne](https://github.com/HViktorTsoi/rs_to_velodyne)
 ## 2.相关仓库代码修改
 ### 雷达仓库
 使用依赖于ROS-catkin编译的方式进行ros包编译，
