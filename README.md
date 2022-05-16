@@ -9,7 +9,7 @@ modified ref to https://github.com/ankitdhall/lidar_camera_calibration
 ## 2. 相关仓库代码修改
 ### 2.1 激光雷达仓库
 使用ROS-catkin进行ros包编译:  
-(1) 在/home/slam/下新建一个名为catkin_ws的文件夹作为工作空间，然后在其中新建一个名为src的文件夹, 将rslidar_sdk工程放入src文件夹内 <\br>
+(1) 在/home/slam/下新建一个名为catkin_ws的文件夹作为工作空间，然后在其中新建一个名为src的文件夹, 将rslidar_sdk工程放入src文件夹内  
 (2) 打开工程内的CMakeLists.txt文件，将文件顶部的**set(COMPILE_METHOD ORIGINAL)**改为**set(COMPILE_METHOD CATKIN)**
 ```
 #=======================================
@@ -17,9 +17,9 @@ modified ref to https://github.com/ankitdhall/lidar_camera_calibration
 #=======================================
 set(COMPILE_METHOD CATKIN)
 ```
-(3) 将rslidar_sdk工程目录下的package_ros1.xml文件复制一份到当前目录下，并重命名为package.xml <\br>
-(4) 更改配置文件中的雷达型号，否则会提示zero_points，rviz为空白: <\br>
-打开rslidar_sdk/config/config.yaml，将**lidar_type: RS128**改为**lidar_type: RSHLIOS** <\br>
+(3) 将rslidar_sdk工程目录下的package_ros1.xml文件复制一份到当前目录下，并重命名为package.xml  
+(4) 更改配置文件中的雷达型号，否则会提示zero_points，rviz为空白:  
+打开rslidar_sdk/config/config.yaml，将**lidar_type: RS128**改为**lidar_type: RSHLIOS**  
 (5) 在工作空间目录catkin_ws下，执行以下命令即可编译&运行 
 ```
 catkin_make
@@ -28,7 +28,7 @@ roslaunch rslidar_sdk start.launch
 ```
 
 ## 2.2 激光雷达格式转换仓库
-激光雷达与相机标定仓库依赖于有环的激光雷达点云数据格式，所以需要将雷达点云格式变换 <\br>
+激光雷达与相机标定仓库依赖于有环的激光雷达点云数据格式，所以需要将雷达点云格式变换  
 激光雷达格式转换仓库提供了多数的rslidar转velodyne格式的雷达类型，将其变换为有环的数据格式。但该代码仓没有对32线激光雷达进行配置，需要修改[32线类型激光雷达处理的代码](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L115)，
 ```  
 // remap ring id
