@@ -41,7 +41,7 @@ else if (pc->height == 16) {
     new_point.ring = RING_ID_MAP_RUBY[point_id % pc->height];
 }
 ```
-以及添加[环线映射方法](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L22)。
+以及添加[环线映射方法](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L25)。
 ```
 static int RING_ID_MAP_32[] = {
         31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
