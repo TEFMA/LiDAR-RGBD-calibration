@@ -3,12 +3,12 @@ RoboSense LiDAR (Helios 5515) and RGBD camera (Intel RealSense D435i) calibratio
 modified ref to https://github.com/ankitdhall/lidar_camera_calibration
 
 ## 1. 相关代码仓库
-(1) 激光雷达仓库：[rslidar_sdk](https://github.com/RoboSense-LiDAR/rslidar_sdk) <\br>
-(2) 激光雷达与相机标定仓库：[LiDAR-Camera Calibration using 3D-3D Point correspondences](https://github.com/ankitdhall/lidar_camera_calibration) <\br>
+(1) 激光雷达仓库：[rslidar_sdk](https://github.com/RoboSense-LiDAR/rslidar_sdk)  
+(2) 激光雷达与相机标定仓库：[LiDAR-Camera Calibration using 3D-3D Point correspondences](https://github.com/ankitdhall/lidar_camera_calibration)  
 (3) 激光雷达格式转换仓库：[RS to Velodyne](https://github.com/HViktorTsoi/rs_to_velodyne)
 ## 2. 相关仓库代码修改
 ### 2.1 激光雷达仓库
-使用ROS-catkin进行ros包编译: <\br>
+使用ROS-catkin进行ros包编译:  
 (1) 在/home/slam/下新建一个名为catkin_ws的文件夹作为工作空间，然后在其中新建一个名为src的文件夹, 将rslidar_sdk工程放入src文件夹内 <\br>
 (2) 打开工程内的CMakeLists.txt文件，将文件顶部的**set(COMPILE_METHOD ORIGINAL)**改为**set(COMPILE_METHOD CATKIN)**
 ```
