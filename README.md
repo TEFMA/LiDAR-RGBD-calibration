@@ -29,7 +29,7 @@ roslaunch rslidar_sdk start.launch
 
 ## 2.2 激光雷达格式转换仓库
 激光雷达与相机标定仓库依赖于有环的激光雷达点云数据格式，所以需要将雷达点云格式变换  
-激光雷达格式转换仓库提供了多数的rslidar转velodyne格式的雷达类型，将其变换为有环的数据格式。但该代码仓没有对32线激光雷达进行配置，需要修改[32线类型激光雷达处理的代码](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L115)
+激光雷达格式转换仓库提供了多数的rslidar转velodyne格式的雷达类型，将其变换为有ring的数据格式。但该代码仓没有对32线激光雷达进行配置，需要修改[32线类型激光雷达处理的代码](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L115)
 ```  
 // remap ring id
 if (pc->height == 32){
@@ -41,7 +41,7 @@ else if (pc->height == 16) {
     new_point.ring = RING_ID_MAP_RUBY[point_id % pc->height];
 }
 ```
-以及添加[环线映射方法](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L25)
+以及添加[ring映射方法](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L25)
 ```
 static int RING_ID_MAP_32[] = {
         31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
