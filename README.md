@@ -18,28 +18,32 @@ modified ref to https://github.com/ankitdhall/lidar_camera_calibration
 set(COMPILE_METHOD CATKIN)
 ```
 (3) 将rslidar_sdk工程目录下的package_ros1.xml文件复制一份到当前目录下，并重命名为package.xml <\br>
-(4) 更改配置文件中的雷达型号，否则会提示zero_points，rviz为空白: </br>
-打开rslidar_sdk/config/config.yaml，将**lidar_type: RS128**改为**lidar_type: RSHLIOS** </br>
+(4) 更改配置文件中的雷达型号，否则会提示zero_points，rviz为空白: <\br>
+打开rslidar_sdk/config/config.yaml，将**lidar_type: RS128**改为**lidar_type: RSHLIOS** <\br>
 (5) 在工作空间目录catkin_ws下，执行以下命令即可编译&运行 
 ```
 catkin_make
 source devel/setup.bash
 roslaunch rslidar_sdk start.launch
 ```
+
 ## 2.2 激光雷达格式转换仓库
-激光雷达与相机标定仓库依赖于有环的激光雷达点云数据格式，所以需要将雷达点云格式变换 </br>
-雷达格式转换仓库提供了多数的rslidar转velodyne格式的雷达类型，将其变换为有环的数据格式，但该代码仓没有对32线代码进行配置，需要修改[32线类型补充](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L118)，以及添加[环线映射方法](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L22)。
+激光雷达与相机标定仓库依赖于有环的激光雷达点云数据格式，所以需要将雷达点云格式变换 <\br>
+激光雷达格式转换仓库提供了多数的rslidar转velodyne格式的雷达类型，将其变换为有环的数据格式。但该代码仓没有对32线激光雷达进行配置，需要修改[32线类型激光雷达处理的代码](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L115)，
+```  
+// remap ring id
+if (pc->height == 32){
+    new_point.ring = RING_ID_MAP_32[point_id % pc->height];
+}
+else if (pc->height == 16) {
+    new_point.ring = RING_ID_MAP_16[point_id / pc->width];
+} else if (pc->height == 128) {
+    new_point.ring = RING_ID_MAP_RUBY[point_id % pc->height];
+}
 ```
-if (pc->height == 16) {
-            new_point.ring = RING_ID_MAP_16[point_id / pc->width];
-        } else if (pc->height == 32) {
-            new_point.ring = RING_ID_MAP_32[point_id % pc->height];
-        } else if(pc->height == 128) {
-            new_point.ring = RING_ID_MAP_RUBY[point_id % pc->height];
-        }
+以及添加[环线映射方法](https://github.com/HViktorTsoi/rs_to_velodyne/blob/c7125ffe8616d26a74f45f91299824de0167b63d/src/rs_to_velodyne.cpp#L22)。
 ```
-```
-static int RING_ID_MAP_16[] = {
+static int RING_ID_MAP_32[] = {
         31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 };
 ```
