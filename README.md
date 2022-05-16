@@ -49,10 +49,10 @@ static int RING_ID_MAP_32[] = {
 ```
 
 ## 2.3 激光雷达与相机标定仓库
-(1) ros包安装过程参照[Setup and Installation](https://github.com/ankitdhall/lidar_camera_calibration/wiki/Welcome-to-%60lidar_camera_calibration%60-Wiki!)进行安装配置
+(1) ros包安装过程参照[Setup and Installation](https://github.com/ankitdhall/lidar_camera_calibration/wiki/Welcome-to-%60lidar_camera_calibration%60-Wiki!)进行安装配置  
 (2) 配置后需要对订阅话题进行对应修改：  
 打开lidar_camera_calibration/launch/find_transform.launch文件：  
-a. 对<!-- ArUco mapping -->进行解注释(否则将导致标定程序在标定信息读取之后卡住)：
+a. 对<!-- ArUco mapping -->进行解注释(否则将导致标定程序在标定信息读取之后卡住)：  
 ```
 <?xml version="1.0"?>
 <launch>
