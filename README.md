@@ -79,5 +79,6 @@ b. 将remap字段按照实际相机的图像topic(在实际使用的相机ros驱
 (5) 修改lidar_camera_calibration/config/lidar_camera_calibration.yaml文件中的相机和雷达对应的topic  
 (6) realsense相机相关代码修改:  
 原代码仓库默认使用zed相机并使用灰度图进行图像显示，而realsense发布的topic为彩色图像，需要在lidar_camera_calibration/dependencies/aruco_mapping/src/aruco_mapping.cpp文件中对[sensor_msgs::image_encodings](https://github.com/ankitdhall/lidar_camera_calibration/blob/13d52954fa18ee3eef86272757555a28a2532c71/dependencies/aruco_mapping/src/aruco_mapping.cpp#L167)其编码方式进行更改，将MONO8修改为BGR8，否则会出现cvtColor报错问题  
-(7) 如果雷达点云不是带有ring的格式将报错Failed to find match for field 'ring'.需要进行点云格式变换,见2.2
+(7) 修改lidar_camera_calibration/include/lidar_camera_calibration/PreprocessUtils.h文件中[Line200](https://github.com/ankitdhall/lidar_camera_calibration/blob/13d52954fa18ee3eef86272757555a28a2532c71/include/lidar_camera_calibration/PreprocessUtils.h#L200)，由rings(16)修改为rings(32)
+(8) 如果雷达点云不是带有ring的格式将报错Failed to find match for field 'ring'.需要进行点云格式变换,见2.2
 
